@@ -1,3 +1,4 @@
+"use strict";
 var Chatty = (function (chatty){
 
 // One IIFE should contain a function that accepts an element id, and the user message,
@@ -10,23 +11,24 @@ var idVariable = 0;
 
   chatty.addMessage = function(id, message){
     if (message !== ""){
-      var element = document.getElementById(id);
-      element.innerHTML += `<div id="${idVariable}" class="individualMessageDiv"><p>${message}</p><button type="button" class="deleteButton">Delete</button></div>`;
+      var $element = $("#"+id);
+      $element.append(`<div id="${idVariable}" class="individualMessageDiv"><p>${message}</p><button type="button" class="deleteButton">Delete</button></div>`);
       userMsgArray.push(message);
       idVariable++;
-    };
+    }
   };
 
   chatty.removeArrayMessages = function(id){
-    var child = document.getElementById(id);
-    var parent = child.parentNode;
-    var index = userMsgArray.indexOf.call(parent.children, child);
-    userMsgArray.splice(index);
+    // var child = document.getElementById(id);
+    // var parent = child.parentNode;
+    // var index = userMsgArray.indexOf.call(parent.children, child);
+    userMsgArray.splice($("#"+id).index(), 1);  //jquery
   };
 
   chatty.getMsgArray = function() {
     return userMsgArray;
   };
+
   chatty.removeAllMessagesInArray = function () {
     userMsgArray = [];
   };
